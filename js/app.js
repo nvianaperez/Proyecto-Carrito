@@ -17,7 +17,6 @@ function registrarEventListeners() {
     // agregarCarritoBtn.addEventListener('click', agregarCurso);
     listaCursos.addEventListener('click', agregarCurso);
     contenedorListaCarrito.addEventListener('click', eliminarCurso);
-    carrito.addEventListener('click', eliminarCurso);
     vaciarCarritoBtn.addEventListener('click', () => {
         articulosCarrito = [];
         limpiarHTML();
@@ -44,17 +43,17 @@ function eliminarCurso(e) {
         //elimina del array articulosCarrito por el data-id
         articulosCarrito.forEach(curso => {
             if (curso.id === cursoId) {
-                if (curso.cantidad > 1) {
-                    curso.cantidad--;
+                if (curso.cantidad === 1) {
+                    articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
                     return articulosCarrito;
                 } else {
-                    articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
+                    curso.cantidad--;
                     return articulosCarrito;
                 }
             };
         });
-        mostrarEnElCarrito();
     };
+    mostrarEnElCarrito();
 };
 
 //lee el contenido html al que damos click y extrae la info del curso seleccionado
